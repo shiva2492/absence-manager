@@ -1,0 +1,9 @@
+[{
+    "name": "sickness",
+    "descriptionTemplate": "$member_name is sick"
+  },
+  {
+    "name": "vacation",
+    "descriptionTemplate": "$member_name is on vacation"
+  }
+]
