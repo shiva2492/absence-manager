@@ -1,16 +1,23 @@
 import path from "path";
 import swaggerJSDoc from "swagger-jsdoc";
+import {
+    httpScheme,
+    domain,
+    port,
+    basePath,
+    apiVersion
+} from "./vars";
 
 export const specs = swaggerJSDoc({
     swaggerDefinition: {
         openapi: "3.0.3",
         info: {
             title: "Absence Manager",
-            version: "1.0.0",
+            version: `${apiVersion}`,
             description: "API Documentation for Absence Manager"
         },
         servers: [{
-            url: "http://localhost:3000/api/v1",
+            url: `${httpScheme}://${domain}:${port}${basePath}`,
         }],
         components: {
             securitySchemes: {
