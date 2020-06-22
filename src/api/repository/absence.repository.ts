@@ -14,7 +14,6 @@ export class AbsenceRepository extends BaseRepository<IAbsence> {
     }
 
     async getAbsenceList(options: any): Promise<any> {
-        const role: string = options.decoded.role;
         const decodedUserId: any = Types.ObjectId(options.decoded._id);
         let absencesList: any, count: any;
         absencesList = await AbsenceModel.find({ userId: decodedUserId })
@@ -29,8 +28,6 @@ export class AbsenceRepository extends BaseRepository<IAbsence> {
 
 
     async getAbsenceListAdmin(options: any): Promise<any> {
-        const role: string = options.decoded.role;
-        const decodedUserId: any = Types.ObjectId(options.decoded._id);
         let absencesList: any, count: any;
         absencesList = await AbsenceModel.find()
             .sort('createdAt')
@@ -41,7 +38,6 @@ export class AbsenceRepository extends BaseRepository<IAbsence> {
     }
 
     async downloadIcalFile(options: any): Promise<any> {
-        const role: string = options.decoded.role;
         const decodedUserId: any = Types.ObjectId(options.decoded._id);
         const params: any = options.params;
         let absenceList: any, query: any = {};
@@ -74,8 +70,6 @@ export class AbsenceRepository extends BaseRepository<IAbsence> {
     }
 
     async downloadIcalFileAdmin(options: any): Promise<any> {
-        const role: string = options.decoded.role;
-        const decodedUserId: any = Types.ObjectId(options.decoded._id);
         const params: any = options.params;
         let absenceList: any, query: any = {};
         const cal = ical({

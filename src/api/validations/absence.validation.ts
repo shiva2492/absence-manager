@@ -9,7 +9,7 @@ import {
 } from "../../config/constants";
 import { AbsenceValidationSchema } from "../../api/models/absence.model";
 
-const fileName = "[user.validation.js]";
+const fileName = "[absence.validation.js]";
 
 const validateAbsence = async (
     req: Request,

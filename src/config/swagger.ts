@@ -22,28 +22,5 @@ export const specs = swaggerJSDoc({
             }
         },
     },
-
-
-
-    // securityDefinitions: {
-    //     auth: {
-    //         type: 'ApiKeyAuth'
-    //     }
-    // },
-    // security: [
-    //     { auth: [] }
-    // ],
-    // securityDefinitions: {
-    //     JWT: {
-    //         type: 'apiKey',
-    //         description: 'JWT authorization of an API',
-    //         name: 'x-access-token',
-    //         in: 'header'
-    //     },
-    // },
-    // security: [
-    //     { auth: [] }
-    // ],
-    // schemes: ["http"],
     apis: [path.join(__dirname, "../api/routes/*.route.js")]
 });

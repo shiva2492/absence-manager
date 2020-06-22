@@ -23,9 +23,9 @@ app.set("port", port || 3000);
 
 // request logging. dev: console | production: file
 app.use(morgan(logs));
+
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors());
-
 
 // parse body params and attach them to req.body
 app.use(bodyParser.json({
