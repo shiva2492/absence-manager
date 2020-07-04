@@ -16,12 +16,44 @@ export class AbsenceRepository extends BaseRepository<IAbsence> {
     async getAbsenceList(options: any): Promise<any> {
         const decodedUserId: any = Types.ObjectId(options.decoded._id);
         let absencesList: any, count: any;
-        absencesList = await AbsenceModel.find({ userId: decodedUserId })
-            .sort('startDate')
-            .populate('admitterId', 'name')
-            .populate('absenceTypeId', 'name')
-            .populate('userId', 'userName email')
-            .lean();
+
+        // Use the populate solution, if running against a sharded cluster.
+        // absencesList = await AbsenceModel.find({ userId: decodedUserId })
+        //     .sort('startDate')
+        //     .populate('admitterId', 'name')
+        //     .populate('absenceTypeId', 'name')
+        //     .populate('userId', 'userName email')
+        //     .lean();
+
+        // aggregate lookup does not work for sharded cluster
+        absencesList = await AbsenceModel.aggregate([
+            {
+                $match: {
+                    userId: decodedUserId
+                }
+            },
+            {
+                $lookup: {
+                    "from": "members",
+                    "localField": "admitterId",
+                    "foreignField": "_id",
+                    "as": "admitter"
+                }
+            },
+            {
+                $lookup: {
+                    "from": "absencetypes",
+                    "localField": "absenceTypeId",
+                    "foreignField": "_id",
+                    "as": "absencetype"
+                }
+            },
+            {
+                $sort: {
+                    'startDate': 1
+                }
+            }
+        ])
         count = absencesList.length;
         return { count: count, absencesList };
     }
@@ -106,5 +138,4 @@ export class AbsenceRepository extends BaseRepository<IAbsence> {
         }
         return cal;
     }
-
 }
